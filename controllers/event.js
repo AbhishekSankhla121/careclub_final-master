@@ -39,6 +39,7 @@ const getAllEvent=async(req,res,eventData)=>{
         cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
         no_event:no_event,
         no_join_event:no_joined_event,
+        event_joines_info:[]
     });
     }
 }
@@ -280,6 +281,7 @@ const getComment = async (req, res, eventData) => {
         commentdata: event, 
         no_event:no_event,
         no_join_event:no_joined_event,
+        event_joines_info:[]
     });
 
     } catch (error) {
@@ -288,18 +290,49 @@ const getComment = async (req, res, eventData) => {
     }
 }
 
+
+
+
     const joinedUsers=async(req,res,eventData)=>{
-        console.log(req.params.id);
-        let event=await eventData.findOne({_id:req.params.id})
-        if(event){
-            console.log(event.e_joinies)
-        let users=await userData.find({_id:{ $in : event.e_joinies }})
-        console.log(users)
-        res.send(users)
-        //handover to abhishek decide render event or modal
-        }
+        try{
+        let result1=await userData.findOne({_id:req.session.user._id}) 
+        let result2=await eventData.find({e_city:result1.u_city});
         
         
+    
+        // eventcreated start here 
+        let Number_of_event_created = await eventData.find({e_org_id:result1._id});
+        let no_event = Number_of_event_created.length;
+        // eventcreated end here 
+    
+        //joined event start here 
+        let joinedEvents = result2.filter(event => event.e_joinies.includes(result1._id));
+        let no_joined_event = joinedEvents.length;
+        //joined event end here
+        
+       let event=await eventData.findOne({_id:req.params.id})
+       let users =await userData.find({_id:{ $in : event.e_joinies }})
+       console.log(users)
+       if(users){
+       
+        req.flash("eventinfofound", "Invalid request");
+        res.render("event", {
+            msg: req.flash(),
+            events: result2,
+            profile: result1,
+            cmt: result2[0]?.e_comments || [], // Use optional chaining to handle potential undefined value
+            cmtpp: result2[0]?.e_comments[0]?.event_profile_image || null, // Use optional chaining to handle potential undefined value
+            no_event:no_event,
+            no_join_event:no_joined_event,
+            event_joines_info:users,
+        });
+    }
+
+    }     catch (error) {
+        req.flash("error", "Invalid request");
+        return res.render("event", { msg: req.flash() });
+    }
+      
         }
         
 

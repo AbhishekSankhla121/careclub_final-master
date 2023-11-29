@@ -11,7 +11,9 @@ body{
     
     margin: 0;
 }
-
+.mobnav{
+  display: none;
+}
 .tabs span {
     /* background: rgb(16, 153, 9); */
     padding: 10px;

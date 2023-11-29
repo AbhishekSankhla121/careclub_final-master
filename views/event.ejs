@@ -64,93 +64,70 @@
   
   
   
-  
   <!-- Navbar -->
-    <nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+  <nav class="navbar lpnav navbar-expand-lg bg-dark navbar-dark mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home"><b>CareClub</b></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="/events">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/trending">Trending</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle active"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">My Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+             
+              
+            </ul>
+    
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <!-- navvvv for mobileeee -->
+  <div class="mobnav">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><b>CareClub</b></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+          <a class="nav-link active text-white" aria-current="page" href="/trending">Trending</a>
         </div>
       </div>
     </nav>
-    <!-- navvvv for mobileeee -->
-    <div class="mobnav">
-      <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#"><b>CareClub</b></a>
-           <form class="d-flex" role="search">
-              <input
-                class="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-          </div>
+  </div>
+  
+  <!-- ---------------------------Navbar ends ----------------------->
+<!-- show joinnes event modal start here -->
 
-        </div>
-      </nav>
-    </div>
-    
-    <!-- ---------------------------Navbar ends ----------------------->
-
-
+<!-- show joinnes event modal end here -->
 
 
 
@@ -397,7 +374,7 @@ else{
 
                 <hr>
            <div class="row rowsocial">
-              <div class="block col-4">
+              <div class="block col-3">
                 <svg
                 class="heart-icon"
                 width="20"
@@ -406,6 +383,7 @@ else{
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
+              <!-- dil htane ke liye niche wala code htaye -->
               <path
                     class="fill-color-shape"
                     fill-rule="evenodd"
@@ -428,16 +406,21 @@ else{
                             
                             
                             <!-- ---------------------- comment testing---------------------------- -->
-                            <div class="comment col-4 my-2" onclick="showCommentModal('<%= userdetail._id %>')">
+                            <div class="comment col-3 my-2" onclick="showCommentModal('<%= userdetail._id %>')">
                               <i class="far fa-comment" style="font-size:20px;color:#e74c3c"></i>
                               <b style="color:#e74c3c">comment </b>
                           </div>
                           
-                          <div class="upvote-button col-4 my-1">
-                            <span id="upvote" onclick="redirectTojoinEvent('<%= userdetail._id  %>')" class="upvote">+ Join Event</span>
+                          <div class="upvote-button col-3 my-1">
+                            <span id="upvote" onclick="redirectTojoinEvent('<%= userdetail._id  %>')" class="upvote"><b>+ Join</b></span>
                             <span id="vote-count" class="vote-count" style="color:#e74c3c">0</span>
                           </div>
+                          <div class="comment col-3 my-2 "  onclick="showEventModal('<%= userdetail._id  %>')">
+                            <b style="color:#e74c3c">joined By</b>
+                           </div>
                           </div>
+
+                          
               </div>
 
 
@@ -464,7 +447,7 @@ else{
                 
                 <div class="col-4 home"><center>HOME</center></div>
                 <div class="col-4 post"><center>POST</center></div>
-                <div class="col-4 profile"><center>Profile</center></div>
+                <div class="col-4 profile"><center><a href="/profile" class="text-white" style="text-decoration: none;">Profile</a></center></div>
               </div>
           </div>
           
@@ -706,9 +689,69 @@ function redirectTojoinEvent(userid) {
 <!-- harsh end here-->
 
 <%}%>
-
-
-  <!-- main event page end here -->
+<!-- main event page end here -->
  
+
+
+<%if(msg.eventinfofound){%>
+   
+<!-- Modal -->
+<div class="modal fade" id="Show-event-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Event Joinee List</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+      </div>
+      <div class="card bg-dark text-white" style="">
+      <div class="modal-body">
+          <div class="card bg-dark">
+              <div class="modal-body" style="  overflow-y: scroll;
+              max-height:380px;">
+                  <div class="content">
+                 
+                          
+  
+         <% event_joines_info.forEach(info => { %>
+    
+          
+    <div class="row">
+      <div class="col-7">
+
+  <img src=<%= info.Image_URL ===null?"/images/event/7309681.jpg":info.Image_URL %> alt="" height="50px" width="50px" style="border-radius:50%;"><b>&nbsp; &nbsp; <%= info.u_name %></b>
+  
+
+</div>
+
+</div>
+<hr>
+<% }); %>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer" id="laptopmodalfooter">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<%}%>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+      var commentModal = new bootstrap.Modal(document.getElementById("Show-event-Modal"));
+      commentModal.show();
+     });
+  function showEventModal(userid) {
+      
+      window.location.href = `/joined-users/${userid}`;
+    }
+</script>
+
+
+
 </body>
 </html>

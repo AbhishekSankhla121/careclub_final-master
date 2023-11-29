@@ -5,7 +5,13 @@ body {
 .mobile, .mobnav, .sp, .mobcomment{
     display: none;
 }
-
+.link1{
+  color: white;
+}
+.link1:hover{
+  color: #c44133;
+  /* display: none; */
+}
 .row1{
     /* border-top-right-radius:20px; */
     border-top-left-radius:20px;
