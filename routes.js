@@ -37,6 +37,7 @@ app.get('/get-event',(req,res)=>eventDetails.getEventFile(req,res));//rendring e
 app.post('/create-event',upload.single("e_image"),eventDetails.createEvent(eventData,storage))//handeling event
 app.get('/events',(req,res)=>eventDetails.getAllEvent(req,res,eventData));//getting all events
 app.get('/join-event/:id',(req,res)=>eventDetails.joinEvents(req,res,eventData))
+app.get("/joined-users/:id",(req,res)=>eventDetails.joinedUsers(req,res,eventData))
 
 app.get('/joined-events',(req,res)=>eventDetails.getJoinedEventsFile(req,res,eventData))
 app.get('/organised-events',(req,res)=>eventDetails.organisedEvents(req,res,eventData))
@@ -137,8 +138,9 @@ app.get( '/auth/google/callback',passport.authenticate( 'google',{failureRedirec
     if(user){
         req.flash("error","welcome back user")
             req.session.user=user;
+            return res.redirect('/events') // Abhishek res.render("AllEvents",{msg:req.flash()})
 
-            return res.render("events",{msg:req.flash()}) // Abhishek res.render("AllEvents",{msg:req.flash()})
+            // return res.render("events",{msg:req.flash()}) // Abhishek res.render("AllEvents",{msg:req.flash()})
   }
 else{
     let newUser=new userData({
@@ -154,9 +156,9 @@ else{
     newUser.save().then((result)=>{
         console.log(result)
             
-            req.session.user=newUser;
-            req.flash("success","Greetings from CareClub")
-            return res.render("details",{msg:req.flash()});
+            req.session.user=result;
+            return res.redirect('/events')
+
        
     }).catch((err)=>{
         console.log(err);

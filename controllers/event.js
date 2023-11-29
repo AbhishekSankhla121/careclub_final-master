@@ -8,7 +8,7 @@ res.render("event",{msg:req.flash()});
 
 
 const getAllEvent=async(req,res,eventData)=>{
-    let result1=await userData.findOne({_id:req.user._id}) 
+    let result1=await userData.findOne({_id:req.session.user._id}) 
     
     if(result1.u_phone == null && result1.u_city == null){
         req.flash("UserDetails","number and city not found!  ")//abhishek
@@ -241,7 +241,7 @@ const commentEvent = async (req, res, eventData) => {
 };
 const getComment = async (req, res, eventData) => {
     try {
-        const userId = req.user._id;
+        const userId = req.session.user._id;
         
         // Use findOne directly to find the user
         const user = await userData.findOne({ _id: userId });
@@ -286,7 +286,21 @@ const getComment = async (req, res, eventData) => {
         req.flash("error", "Invalid request");
         return res.render("event", { msg: req.flash() });
     }
-};
+}
+    const joinedUsers=async(req,res,eventData)=>{
+        console.log(req.params.id);
+        let event=await eventData.findOne({_id:req.params.id})
+        if(event){
+            console.log(event.e_joinies)
+        let users=await userData.find({_id:{ $in : event.e_joinies }})
+        console.log(users)
+        res.send(users)
+        //handover to abhishek decide render event or modal
+        }
+        
+        
+        }
+        
 
 //written by abhishek end here//
 
@@ -300,5 +314,6 @@ module.exports={
     organisedEvents,
     likeEvent,//add by abhishek
     commentEvent, // add by abhishek
-    getComment // add by abhishek
+    getComment, // add by abhishek
+    joinedUsers
 }
