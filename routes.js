@@ -27,7 +27,7 @@ const firebaseConfig = {
 const updateDetails=require('./controllers/Details');
 const eventDetails=require('./controllers/event');
 const trendingDetails = require('./controllers/Trending');
-const showTrendingHashtag = require('./controllers/Trending');
+const {showTrendingHashtag} = require('./controllers/Trending');
 
 
 function routes(app){
@@ -51,8 +51,8 @@ app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, 
 
 
 app.get('/trending',showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
-app.get('/test-tred',(req, res)=>trendingDetails.testadd(req,res))
-app.get('/get-trend',(req, res)=>trendingDetails.getTrendFile(req,res))
+app.get('/test-tred',(req,res)=>trendingDetails.testadd(req,res))
+app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))
 //written by abishek end  here 
 
 app.get('/profile',async(req,res)=>{

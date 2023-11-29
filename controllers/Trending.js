@@ -98,10 +98,10 @@ const mid=(req,res,next)=>{
     console.log(("middleware on duty"))
     next()    
 }
-        module.exports={
-            getTrendFile,
-            showTrendingHashtag,
-            testadd,
-            test1,
-            mid
-        }
+module.exports = {
+    getTrendFile,
+    showTrendingHashtag,
+    testadd,
+    test1,
+    mid
+};
