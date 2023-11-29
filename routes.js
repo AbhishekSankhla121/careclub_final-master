@@ -25,7 +25,11 @@ const firebaseConfig = {
   
   
 const updateDetails=require('./controllers/Details');
-const eventDetails=require('./controllers/event')
+const eventDetails=require('./controllers/event');
+const trendingDetails = require('./controllers/Trending');
+const showTrendingHashtag = require('./controllers/Trending');
+
+
 function routes(app){
 app.get('/details',(req,res)=>updateDetails.getDetailsFile(req,res)); //rendring detail ejs file
 app.post('/details',updateDetails.addDetails(userData))//handelin detail
@@ -44,6 +48,10 @@ app.get('/like',(req,res)=> eventDetails.likeEvent(req,res,eventData));
 app.post('/comment/:id/:usrid',(req,res)=> eventDetails.commentEvent(req,res,eventData));
 app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, eventData));
 
+
+app.get('/trending',showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
+app.get('/test-tred',(req, res)=>trendingDetails.testadd(req,res))
+app.get('/get-trend',(req, res)=>trendingDetails.getTrendFile(req,res))
 //written by abishek end  here 
 
 app.get('/profile',async(req,res)=>{
