@@ -287,6 +287,7 @@ const getComment = async (req, res, eventData) => {
         return res.render("event", { msg: req.flash() });
     }
 }
+
     const joinedUsers=async(req,res,eventData)=>{
         console.log(req.params.id);
         let event=await eventData.findOne({_id:req.params.id})
