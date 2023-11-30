@@ -241,7 +241,7 @@
         
           
           else if ("<%= msg.success %>"){
-            openModal("<%= msg.success %>","hehehh");
+            openModal("<%= msg.success %>","sucess");
             modalContent.style.backgroundColor = "14BB28";
       modalContent.style.color="white";
      
@@ -374,7 +374,7 @@ else{
 
                 <hr>
            <div class="row rowsocial">
-              <div class="block col-3">
+              <div class="block col-2">
                 <svg
                 class="heart-icon"
                 width="20"
@@ -415,8 +415,8 @@ else{
                             <span id="upvote" onclick="redirectTojoinEvent('<%= userdetail._id  %>')" class="upvote"><b>+ Join</b></span>
                             <span id="vote-count" class="vote-count" style="color:#e74c3c">0</span>
                           </div>
-                          <div class="comment col-3 my-2 "  onclick="showEventModal('<%= userdetail._id  %>')">
-                            <b style="color:#e74c3c">joined By</b>
+                          <div class="comment col-4 my-1 "  onclick="showEventModal('<%= userdetail._id  %>')">
+                            <span id="upvote" class="upvote" style="font-size:20px;color:#e74c3c"><i class="fa fa-eye" style="font-size:20px;color:red"></i>Joined By</span>
                            </div>
                           </div>
 
@@ -518,7 +518,7 @@ else{
         
           <div class="row g-0" id="laptopcmnt">
             <div class="col-6">
-              <img src=<%= commentdata.e_image  %> class="img-fluid rounded-start" alt="...">
+              <img class="img-fluid rounded-start" alt="..."  style="height:400px;width:450px" src=<%= commentdata.e_image  %> >
             </div>
             
             

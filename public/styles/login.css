@@ -13,6 +13,9 @@
   /* height: 100vh; */
   /* margin: -20px 0 10px; */
   }
+  .mobnav{
+    display: none;
+  }
   .mobile_begin{
     display: none;
   }

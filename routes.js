@@ -6,7 +6,7 @@ const multer=require('multer');
 const path=require('path')
 
 const { getStorage, ref, uploadBytesResumable,getDownloadURL } = require("firebase/storage");
-
+const {islogin}=require('./passportConfig')
 const validator=require('validator')
 const firebaseConfig = {
     apiKey: "AIzaSyDkTVL_FS17diZVH852oQRG-dB__o6Lnzw",
@@ -35,7 +35,7 @@ app.get('/details',(req,res)=>updateDetails.getDetailsFile(req,res)); //rendring
 app.post('/details',updateDetails.addDetails(userData))//handelin detail
 app.get('/get-event',(req,res)=>eventDetails.getEventFile(req,res));//rendring event ejs file 
 app.post('/create-event',upload.single("e_image"),eventDetails.createEvent(eventData,storage))//handeling event
-app.get('/events',(req,res)=>eventDetails.getAllEvent(req,res,eventData));//getting all events
+app.get('/events',islogin,(req,res)=>eventDetails.getAllEvent(req,res,eventData));//getting all events
 app.get('/join-event/:id',(req,res)=>eventDetails.joinEvents(req,res,eventData))
 app.get("/joined-users/:id",(req,res)=>eventDetails.joinedUsers(req,res,eventData))
 
@@ -50,12 +50,12 @@ app.post('/comment/:id/:usrid',(req,res)=> eventDetails.commentEvent(req,res,eve
 app.get('/getcomment/:eventId', (req, res) => eventDetails.getComment(req, res, eventData));
 
 
-app.get('/trending',showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
+app.get('/trending',islogin,showTrendingHashtag,(req,res)=>trendingDetails.getTrendFile(req,res))
 app.get('/test-tred',(req,res)=>trendingDetails.testadd(req,res))
 app.get('/get-trend',(req,res)=>trendingDetails.getTrendFile(req,res))
 //written by abishek end  here 
 
-app.get('/profile',async(req,res)=>{
+app.get('/profile',islogin,async(req,res)=>{
  
    var user=await userData.findOne({_id:req.session.user._id})
 
@@ -104,7 +104,9 @@ console.log("________________________")
     })
 })
 
-
+app.get('/home',(req,res)=>{
+    res.render("home")
+    })
 app.get('/test',async(req,res)=>{
     console.log(req.session.user._id)
     // let result =await eventData.find();
@@ -136,7 +138,7 @@ app.get( '/auth/google/callback',passport.authenticate( 'google',{failureRedirec
     var response=[];
     let user=await userData.findOne({u_email:req.user.email});
     if(user){
-        req.flash("error","welcome back user")
+        req.flash("success","welcome back user")
             req.session.user=user;
             return res.redirect('/events') // Abhishek res.render("AllEvents",{msg:req.flash()})
 
@@ -228,7 +230,16 @@ app.get('/login/error',(req,res)=>{
 //     res.send(response);
 //   });
 // });
-
+app.get('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+    delete req.session.user;
+    delete req.user;
+    
+  
+      res.redirect('/home');
+    });
+  });
 app.post('/register',upload.single("Image_URL"),async(req,res)=>{
 
     var response=[];
@@ -320,6 +331,10 @@ app.post('/register',upload.single("Image_URL"),async(req,res)=>{
         
 })
 }
+
+
+
+
 module.exports=routes
 
 
